@@ -10,37 +10,32 @@ import SwiftUI
 import Combine
 
 final class Store: ObservableObject  {
-    
-    let SAVED = "Saved"
-    let NOT_SAVED = "Failed to Save"
-    
-    @Published var selectedItem: Item?
-    @Published var selectedItemId: UUID? {
-        didSet {
-            self.selectedItem = self.items.first(where: { $0.id == self.selectedItemId})
-        }
+    var selectedItem: Item? {
+        self.items.first(where: { $0.id == self.selectedItemId})
+    }
+    var selectedItemIndex: Int {
+        self.items.firstIndex(where: { $0.id == self.selectedItemId })!
     }
     
+    @Published var selectedItemId: UUID?
     @Published var alert: StoreAlert
-    
     @Published var items: [Item] {
         didSet {
             if FileManagement.saveData(dataSource: self.items) {
                 self.selectedItemId = nil
             }
             else {
-                self.alert = StoreAlert(title: NOT_SAVED)
+                self.alert = StoreAlert(title: "Failed to Save")
             }
         }
     }
     
     convenience init() {
-        self.init(items: nil, selectedItem:nil, alertVisible: false, alertTitle: "")
+        self.init(items: nil, selectedItemId:nil, alertVisible: false, alertTitle: "")
     }
     
-    init(items: [Item]?, selectedItem: Item?, alertVisible: Bool, alertTitle: String) {
+    init(items: [Item]?, selectedItemId: UUID?, alertVisible: Bool, alertTitle: String) {
         self.alert = StoreAlert(visible: alertVisible, title: alertTitle)
-        self.selectedItem = selectedItem
         
         if let items = items {
             self.items = items
@@ -51,6 +46,12 @@ final class Store: ObservableObject  {
         else {
          	self.items = []
         }
+        
+        self.selectedItemId = selectedItemId
+    }
+    
+    func setSelectedItemAmount(_ amount:Double) {
+        self.items[self.selectedItemIndex].amount = amount
     }
     
 //    var changeSink: AnyCancellable?

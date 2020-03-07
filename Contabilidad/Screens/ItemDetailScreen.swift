@@ -13,10 +13,6 @@ struct ItemDetailScreen: View {
     @EnvironmentObject private var store: Store
     @State var amount: String = ""
     
-    var dataIndex: Int {
-        store.items.firstIndex(where: { $0.id == self.store.selectedItem?.id })!
-    }
-    
     var body: some View {
         VStack(alignment: .center) {
             TextField("Enter the value", text: $amount)
@@ -30,7 +26,7 @@ struct ItemDetailScreen: View {
         .navigationBarTitle(Text(self.store.selectedItem?.title ?? ""), displayMode: .inline)
         .navigationBarItems(trailing:
             Button("Save") {
-                self.store.items[self.dataIndex].amount = Double(self.amount)!
+                self.store.setSelectedItemAmount(Double(self.amount)!)
             }
         )
     }

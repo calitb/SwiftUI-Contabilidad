@@ -21,5 +21,5 @@ let ITEMS_FIXTURE = [
     Item(id:UUID(), title: "Visa", amount: -30.25, imageName: "bgeneral.png")
 ]
 
-let STORE_ITEMS_SCREEN_FIXTURE = Store(items: ITEMS_FIXTURE, selectedItem: nil, alertVisible: false, alertTitle: "")
-let STORE_ITEM_SCREEN_FIXTURE = Store(items: ITEMS_FIXTURE, selectedItem: ITEM_FIXTURE, alertVisible: false, alertTitle: "")
+let STORE_ITEMS_SCREEN_FIXTURE = Store(items: ITEMS_FIXTURE, selectedItemId: nil, alertVisible: false, alertTitle: "")
+let STORE_ITEM_SCREEN_FIXTURE = Store(items: ITEMS_FIXTURE, selectedItemId: ITEM_FIXTURE.id, alertVisible: false, alertTitle: "")
