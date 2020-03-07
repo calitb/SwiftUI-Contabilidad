@@ -10,7 +10,8 @@ import SwiftUI
 
 struct ItemDetailScreen: View {
     
-    @EnvironmentObject private var store: Store
+    @EnvironmentObject private var appStore: AppStore
+    @Binding var item : Item?
     @State var amount: String = ""
     
     var body: some View {
@@ -20,13 +21,16 @@ struct ItemDetailScreen: View {
                 .font(.title)
             .textFieldStyle(RoundedBorderTextFieldStyle())
             Spacer()
-        }.onAppear {
-            self.amount = "\(self.store.selectedItem!.amount)"
         }
-        .navigationBarTitle(Text(self.store.selectedItem?.title ?? ""), displayMode: .inline)
+        .onAppear {
+            self.amount = "\(self.item?.amount ?? 0.00)"
+        }
+        .navigationBarTitle(Text(self.item?.title ?? ""), displayMode: .inline)
         .navigationBarItems(trailing:
             Button("Save") {
-                self.store.setSelectedItemAmount(Double(self.amount)!)
+                let action = AppAction.updateItemAmount(itemId: self.item?.id, amount: Double(self.amount)!)
+                self.appStore.dispatch(action: action)
+                self.item = nil
             }
         )
     }
@@ -38,9 +42,9 @@ struct ItemDetailScreen_Previews: PreviewProvider {
             ForEach(DEVICES_FIXTURE, id: \.self) { deviceName in
                 ForEach(SCHEMES_FIXTURE, id: \.self) { scheme in
                     NavigationView {
-                        ItemDetailScreen()
+                        ItemDetailScreen(item: .constant(ITEM_FIXTURE))
                     }
-                    .environmentObject(STORE_ITEM_SCREEN_FIXTURE)
+                    .environmentObject(APPSTORE_ITEM_SCREEN_FIXTURE)
                     .previewDevice(PreviewDevice(rawValue: deviceName))
                     .environment(\.colorScheme, scheme)
                     .previewDisplayName("\(deviceName) \(scheme)")
