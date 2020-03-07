@@ -21,5 +21,8 @@ let ITEMS_FIXTURE = [
     Item(id:UUID(), title: "Visa", amount: -30.25, imageName: "bgeneral.png")
 ]
 
-let STORE_ITEMS_SCREEN_FIXTURE = Store(items: ITEMS_FIXTURE, selectedItemId: nil, alertVisible: false, alertTitle: "")
-let STORE_ITEM_SCREEN_FIXTURE = Store(items: ITEMS_FIXTURE, selectedItemId: ITEM_FIXTURE.id, alertVisible: false, alertTitle: "")
+let SNACKBAR_ERROR_FIXTURE = SnackbarData(message: "An Error Occurred", type: .error)
+let SNACKBAR_SUCCESS_FIXTURE = SnackbarData(message: "Success", type: .success)
+let SNACKBAR_TYPES_FIXTURE = [SNACKBAR_ERROR_FIXTURE, SNACKBAR_SUCCESS_FIXTURE]
+
+let APPSTORE_ITEM_SCREEN_FIXTURE = AppStore(state: AppState(items: ITEMS_FIXTURE, snackbar:nil))

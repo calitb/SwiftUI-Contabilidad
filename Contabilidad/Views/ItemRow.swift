@@ -13,7 +13,8 @@ struct ItemRow: View {
     var body: some View {
         HStack() {
             CircleImage(image: item.image)
-            Text(item.title).font(.headline)
+            Text(item.title)
+                .font(.headline)
             Spacer()
             Text(item.amountString)
                 .font(.headline)

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ItemListScreen: View {
-    @EnvironmentObject private var store: Store
+    @EnvironmentObject private var appStore: AppStore
     
     init() {
         UITableView.appearance().tableFooterView = UIView()
@@ -17,17 +17,18 @@ struct ItemListScreen: View {
     }
     
     var body: some View {
-        NavigationView {
-            VStack {
-                List(store.items) { item in
-                    NavigationLink(destination: ItemDetailScreen(), tag: item.id, selection: self.$store.selectedItemId) {
-                        ItemRow(item: item)
+        ZStack {
+            NavigationView {
+                VStack {
+                    List(appStore.state.items) { item in
+                        NavigationLink(destination: ItemDetailScreen(item: item)) {
+                            ItemRow(item: item)
+                        }
                     }
-                }
-                TotalRow(items: store.items)
-            }.navigationBarTitle("Contabilidad")
-        }.alert(isPresented: $store.alert.visible) {
-            Alert(title: Text(store.alert.title), message: nil, dismissButton: .default(Text("OK")))
+                    TotalRow(items: appStore.state.items)
+                }.navigationBarTitle("Contabilidad")
+            }
+            Snackbar(data: self.appStore.state.snackbar)
         }
     }
 }
@@ -38,7 +39,7 @@ struct ItemListScreen_Previews: PreviewProvider {
             ForEach(DEVICES_FIXTURE, id: \.self) { deviceName in
                 ForEach(SCHEMES_FIXTURE, id: \.self) { scheme in
                     ItemListScreen()
-                        .environmentObject(STORE_ITEMS_SCREEN_FIXTURE)
+                        .environmentObject(APPSTORE_ITEM_SCREEN_FIXTURE)
                         .previewDevice(PreviewDevice(rawValue: deviceName))
                         .environment(\.colorScheme, scheme)
                      	.previewDisplayName("\(deviceName) \(scheme)")
