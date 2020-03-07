@@ -37,11 +37,11 @@ final class Store: ObservableObject  {
     init(items: [Item]?, selectedItemId: UUID?, alertVisible: Bool, alertTitle: String) {
         self.alert = StoreAlert(visible: alertVisible, title: alertTitle)
         
-        if let items = items {
-            self.items = items
+        if let savedItems = FileManagement.readData() {
+            self.items = savedItems
         }
-        else if let savedDtems = FileManagement.readData() {
-            self.items = savedDtems
+        else if let items = items {
+            self.items = items
         }
         else {
          	self.items = []
