@@ -26,8 +26,8 @@ struct ItemListScreen: View {
                 }
                 TotalRow(items: store.items)
             }.navigationBarTitle("Contabilidad")
-        }.alert(isPresented: $store.alertVisible) {
-            Alert(title: Text(store.alertTitle), message: nil, dismissButton: .default(Text("OK")))
+        }.alert(isPresented: $store.alert.visible) {
+            Alert(title: Text(store.alert.title), message: nil, dismissButton: .default(Text("OK")))
         }
     }
 }

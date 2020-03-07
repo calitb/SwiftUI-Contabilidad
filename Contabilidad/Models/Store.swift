@@ -21,21 +21,7 @@ final class Store: ObservableObject  {
         }
     }
     
-    @Published var alertVisible: Bool {
-        didSet {
-            if !self.alertVisible {
-                alertTitle = ""
-            }
-        }
-    }
-    
-    @Published var alertTitle: String {
-        didSet {
-            if self.alertTitle != "" {
-                self.alertVisible.toggle()
-            }
-        }
-    }
+    @Published var alert: StoreAlert
     
     @Published var items: [Item] {
         didSet {
@@ -43,7 +29,7 @@ final class Store: ObservableObject  {
                 self.selectedItemId = nil
             }
             else {
-             	self.alertTitle =  NOT_SAVED
+                self.alert = StoreAlert(title: NOT_SAVED)
             }
         }
     }
@@ -53,8 +39,7 @@ final class Store: ObservableObject  {
     }
     
     init(items: [Item]?, selectedItem: Item?, alertVisible: Bool, alertTitle: String) {
-        self.alertTitle = alertTitle
-        self.alertVisible = alertVisible
+        self.alert = StoreAlert(visible: alertVisible, title: alertTitle)
         self.selectedItem = selectedItem
         
         if let items = items {
