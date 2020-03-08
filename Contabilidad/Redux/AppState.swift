@@ -11,14 +11,14 @@ import Foundation
 struct AppState {
     
     var items: [Item]
-    var snackbar: SnackbarData?
+    var snackbarConf: SnackbarConfiguration?
     
     init(items: [Item]?) {
-        self.init(items: items, snackbar: nil)
+        self.init(items: items, snackbarConf: nil)
     }
     
-    init(items: [Item]?, snackbar: SnackbarData?) {
-        self.snackbar = snackbar;
+    init(items: [Item]?, snackbarConf: SnackbarConfiguration?) {
+        self.snackbarConf = snackbarConf;
         if let savedItems = FileManagement.readData() {
             self.items = savedItems
         }

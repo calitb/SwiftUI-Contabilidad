@@ -12,7 +12,7 @@ import SwiftUI
 final class AppStore: ObservableObject {
     @Published private(set) var state: AppState {
         didSet {
-            if state.snackbar != nil {
+            if state.snackbarConf != nil {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     let action = AppAction.hideSnackbar
                     self.dispatch(action: action)

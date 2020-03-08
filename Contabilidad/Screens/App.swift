@@ -16,7 +16,9 @@ struct App: View {
             NavigationView {
                 ItemListScreen()
             }
-            Snackbar(data: self.appStore.state.snackbar)
+            if self.appStore.state.snackbarConf != nil {
+             	Snackbar(conf: self.appStore.state.snackbarConf!)
+            }
         }
     }
 }

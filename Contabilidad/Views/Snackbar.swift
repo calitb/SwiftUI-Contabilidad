@@ -13,7 +13,7 @@ enum SnackbarType {
     case success
 }
 
-struct SnackbarData {
+struct SnackbarConfiguration {
     var message: String
     var type: SnackbarType
     
@@ -26,21 +26,21 @@ struct SnackbarData {
 }
 
 struct Snackbar: View {
-    var data: SnackbarData?
+    let HEIGHT: CGFloat = 60
+    var conf: SnackbarConfiguration
     
     var body: some View {
         VStack {
-            if self.data != nil {
+            Spacer()
+            HStack {
                 Spacer()
-                HStack {
-                    Spacer()
-                    Text(self.data!.message)
-                        .font(.body)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    	.padding(.leading, 30)
-                    Spacer()
-                }.frame(height: 60).background(self.data!.color)
-        	}
+                Text(self.conf.message)
+                    .font(.body)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 30)
+                Spacer()
+            }.frame(height: HEIGHT)
+            .background(self.conf.color)
         }
         .edgesIgnoringSafeArea(.all)
     }
@@ -53,7 +53,7 @@ struct Snackbar_Previews: PreviewProvider {
                 ForEach(SCHEMES_FIXTURE, id: \.self) { scheme in
                     ForEach(SNACKBAR_TYPES_FIXTURE, id: \.type) { type in
                         NavigationView {
-                            Snackbar(data: type)
+                            Snackbar(conf: type)
                         }
                         .previewDevice(PreviewDevice(rawValue: deviceName))
                         .environment(\.colorScheme, scheme)

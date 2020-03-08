@@ -17,17 +17,17 @@ func appReducer(state oldState: AppState, action: AppAction) -> AppState {
         state.items[itemIndex].amount = amount
         
         if FileManagement.saveData(dataSource: state.items) {
-            state.snackbar = SnackbarData(message: "Saved", type: .success)
+            state.snackbarConf = SnackbarConfiguration(message: "Saved", type: .success)
         }
         else {
-            state.snackbar = SnackbarData(message: "An Error Occurred", type: .error)
+            state.snackbarConf = SnackbarConfiguration(message: "An Error Occurred", type: .error)
         }
     case .setSnackbarError(let message):
-        state.snackbar = SnackbarData(message: message, type: .error)
+        state.snackbarConf = SnackbarConfiguration(message: message, type: .error)
     case .setSnackbarSuccess(let message):
-    	state.snackbar = SnackbarData(message: message, type: .success)
+    	state.snackbarConf = SnackbarConfiguration(message: message, type: .success)
     case .hideSnackbar:
-        state.snackbar = nil
+        state.snackbarConf = nil
     }
     
     return state
