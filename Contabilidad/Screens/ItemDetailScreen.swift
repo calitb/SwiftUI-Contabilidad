@@ -44,7 +44,7 @@ struct ItemDetailScreen_Previews: PreviewProvider {
                     NavigationView {
                         ItemDetailScreen(item: ITEM_FIXTURE)
                     }
-                    .environmentObject(APPSTORE_ITEM_SCREEN_FIXTURE)
+                    .environmentObject(APPSTORE_FIXTURE)
                     .previewDevice(PreviewDevice(rawValue: deviceName))
                     .environment(\.colorScheme, scheme)
                     .previewDisplayName("\(deviceName) \(scheme)")

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D8392DD72413306900A1820D /* fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8392DD62413306900A1820D /* fixtures.swift */; };
 		D8392DDB2413328000A1820D /* FileManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8392DDA2413328000A1820D /* FileManagement.swift */; };
+		D83E11072414E9E200DDD7E7 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E11062414E9E200DDD7E7 /* App.swift */; };
 		D85E35AB24145135003B2966 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E35AA24145135003B2966 /* AppState.swift */; };
 		D85E35AD241451A5003B2966 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E35AC241451A5003B2966 /* AppAction.swift */; };
 		D85E35AF241451FD003B2966 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E35AE241451FD003B2966 /* AppReducer.swift */; };
@@ -49,6 +50,7 @@
 /* Begin PBXFileReference section */
 		D8392DD62413306900A1820D /* fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fixtures.swift; sourceTree = "<group>"; };
 		D8392DDA2413328000A1820D /* FileManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagement.swift; sourceTree = "<group>"; };
+		D83E11062414E9E200DDD7E7 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		D85E35AA24145135003B2966 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		D85E35AC241451A5003B2966 /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
 		D85E35AE241451FD003B2966 /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		D86603BF2410830F005D0752 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				D83E11062414E9E200DDD7E7 /* App.swift */,
 				D8647EEE240EFE78002B8594 /* ItemListScreen.swift */,
 				D86603B5241062DD005D0752 /* ItemDetailScreen.swift */,
 			);
@@ -338,6 +341,7 @@
 				D85E35AF241451FD003B2966 /* AppReducer.swift in Sources */,
 				D8E53ECB2412047300455489 /* TotalRow.swift in Sources */,
 				D8392DD72413306900A1820D /* fixtures.swift in Sources */,
+				D83E11072414E9E200DDD7E7 /* App.swift in Sources */,
 				D85E35AB24145135003B2966 /* AppState.swift in Sources */,
 				D8647EEF240EFE78002B8594 /* ItemListScreen.swift in Sources */,
 				D8392DDB2413328000A1820D /* FileManagement.swift in Sources */,

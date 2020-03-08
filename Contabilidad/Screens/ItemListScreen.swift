@@ -17,19 +17,14 @@ struct ItemListScreen: View {
     }
     
     var body: some View {
-        ZStack {
-            NavigationView {
-                VStack {
-                    List(appStore.state.items) { item in
-                        NavigationLink(destination: ItemDetailScreen(item: item)) {
-                            ItemRow(item: item)
-                        }
-                    }
-                    TotalRow(items: appStore.state.items)
-                }.navigationBarTitle("Contabilidad")
+        VStack {
+            List(appStore.state.items) { item in
+                NavigationLink(destination: ItemDetailScreen(item: item)) {
+                    ItemRow(item: item)
+                }
             }
-            Snackbar(data: self.appStore.state.snackbar)
-        }
+            TotalRow(items: appStore.state.items)
+        }.navigationBarTitle("Contabilidad")
     }
 }
 
@@ -38,11 +33,13 @@ struct ItemListScreen_Previews: PreviewProvider {
         Group() {
             ForEach(DEVICES_FIXTURE, id: \.self) { deviceName in
                 ForEach(SCHEMES_FIXTURE, id: \.self) { scheme in
-                    ItemListScreen()
-                        .environmentObject(APPSTORE_ITEM_SCREEN_FIXTURE)
-                        .previewDevice(PreviewDevice(rawValue: deviceName))
-                        .environment(\.colorScheme, scheme)
-                     	.previewDisplayName("\(deviceName) \(scheme)")
+                    NavigationView {
+                        ItemListScreen()
+                    }
+                    .environmentObject(APPSTORE_FIXTURE)
+                    .previewDevice(PreviewDevice(rawValue: deviceName))
+                    .environment(\.colorScheme, scheme)
+                    .previewDisplayName("\(deviceName) \(scheme)")
                 }
             }
         }
