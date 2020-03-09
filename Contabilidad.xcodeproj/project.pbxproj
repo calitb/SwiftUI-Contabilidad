@@ -105,11 +105,10 @@
 		D85E35A924145110003B2966 /* Redux */ = {
 			isa = PBXGroup;
 			children = (
-				D86603BA24108229005D0752 /* Item.swift */,
-				D85E35AA24145135003B2966 /* AppState.swift */,
-				D85E35AC241451A5003B2966 /* AppAction.swift */,
-				D85E35AE241451FD003B2966 /* AppReducer.swift */,
 				D85E35B024145313003B2966 /* AppStore.swift */,
+				D85E35AA24145135003B2966 /* AppState.swift */,
+				D85E35AE241451FD003B2966 /* AppReducer.swift */,
+				D85E35AC241451A5003B2966 /* AppAction.swift */,
 			);
 			path = Redux;
 			sourceTree = "<group>";
@@ -142,6 +141,7 @@
 				D85E35A924145110003B2966 /* Redux */,
 				D86603BF2410830F005D0752 /* Screens */,
 				D86603BC24108284005D0752 /* Views */,
+				D8DF94DE2416069C00ABA813 /* Models */,
 				D8647EEA240EFE78002B8594 /* AppDelegate.swift */,
 				D8647EEC240EFE78002B8594 /* SceneDelegate.swift */,
 				D8647EF0240EFE79002B8594 /* Assets.xcassets */,
@@ -197,6 +197,14 @@
 				D86603B5241062DD005D0752 /* ItemDetailScreen.swift */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		D8DF94DE2416069C00ABA813 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D86603BA24108229005D0752 /* Item.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

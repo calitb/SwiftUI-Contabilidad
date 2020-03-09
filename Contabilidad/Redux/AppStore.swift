@@ -9,17 +9,9 @@
 import Foundation
 import SwiftUI
 
+typealias Dispatch = (_ action: AppAction) -> AppState
 final class AppStore: ObservableObject {
-    @Published private(set) var state: AppState {
-        didSet {
-            if state.snackbarConf != nil {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    let action = AppAction.hideSnackbar
-                    self.dispatch(action: action)
-                }
-            }
-        }
-    }
+    @Published private(set) var state: AppState
     
     convenience init() {
         self.init(state: AppState(items: []))
@@ -29,7 +21,11 @@ final class AppStore: ObservableObject {
         self.state = state
     }
     
-    public func dispatch(action: AppAction) {
-        state = appReducer(state: state, action: action)
+    public func dispatch(action: AppAction) -> AppState {
+        if let simpleAction = action.perform(dispatch: self.dispatch, state: self.state) {
+            self.state = appReducer(state: state, action: simpleAction)
+        }
+        
+        return self.state
     }
 }
