@@ -12,12 +12,12 @@ func appReducer(state oldState: AppState, action: AppAction) -> AppState {
     var state = oldState
     
     switch (action) {
-    case ._setItem(let item, let amount):
+    case .__setItem(let item, let amount):
         let itemIndex = oldState.items.firstIndex(where: { $0.id == item.id })!
         state.items[itemIndex].amount = amount
-    case ._showSnackbar(let conf):
+    case .showSnackbar(let conf):
         state.snackbarConf = conf
-    case ._hideSnackbar:
+    case .hideSnackbar:
         state.snackbarConf = nil
     default:
         break

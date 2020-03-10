@@ -10,12 +10,12 @@ import Foundation
 
 enum AppAction {
     // Simple Actions
-    case _showSnackbar(_ conf: SnackbarConfiguration)
-    case _hideSnackbar
-    case _setItem(_ item: Item, amount: Double)
+    case showSnackbar(_ conf: SnackbarConfiguration)
+    case hideSnackbar
+    case __setItem(_ item: Item, amount: Double)
     
     // Thunk Actions
-    case showSnackbar(_ conf: SnackbarConfiguration)
+    case presentSnackbar(_ conf: SnackbarConfiguration, timeout: Double)
     case setItem(_ item: Item, amount: Double)
     case setSnackbarError(message: String)
     case setSnackbarSuccess(message: String)
@@ -24,7 +24,7 @@ enum AppAction {
     func perform(store: AppStore) -> AppAction? {
         switch self {
         case .setItem(let item, let amount):
-            let action = AppAction._setItem(item, amount: amount)
+            let action = AppAction.__setItem(item, amount: amount)
             store.dispatch(action)
             if FileManagement.saveData(dataSource: store.state.items) {
                 let action = AppAction.setSnackbarSuccess(message: "Saved")
@@ -35,17 +35,17 @@ enum AppAction {
                 store.dispatch(action)
             }
         case .setSnackbarError(let message):
-            let action = AppAction.showSnackbar(SnackbarConfiguration(message: message, type: .error))
+            let action = AppAction.presentSnackbar(SnackbarConfiguration(message: message, type: .error), timeout: 2.0)
             store.dispatch(action)
         case .setSnackbarSuccess(let message):
-            let action = AppAction._showSnackbar(SnackbarConfiguration(message: message, type: .success))
+            let action = AppAction.presentSnackbar(SnackbarConfiguration(message: message, type: .success), timeout: 2.0)
             store.dispatch(action)
-        case .showSnackbar(let conf):
-            let action = AppAction._showSnackbar(conf)
+        case .presentSnackbar(let conf, let timeout):
+            let action = AppAction.showSnackbar(conf)
             store.dispatch(action)
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                store.dispatch(AppAction._hideSnackbar)
+            DispatchQueue.main.asyncAfter(deadline: .now() + timeout) {
+                store.dispatch(AppAction.hideSnackbar)
             }
         default:
             return self
