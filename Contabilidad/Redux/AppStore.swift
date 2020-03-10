@@ -21,11 +21,9 @@ final class AppStore: ObservableObject {
         self.state = state
     }
     
-    public func dispatch(action: AppAction) -> AppState {
-        if let simpleAction = action.perform(dispatch: self.dispatch, state: self.state) {
+    public func dispatch(_ action: AppAction) {
+        if let simpleAction = action.perform(store: self) {
             self.state = appReducer(state: state, action: simpleAction)
         }
-        
-        return self.state
     }
 }

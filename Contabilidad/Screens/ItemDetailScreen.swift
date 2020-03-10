@@ -31,7 +31,7 @@ struct ItemDetailScreen: View {
             Button("Save") {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
                 let action = AppAction.setItem(self.item, amount: Double(self.amount)!)
-                self.appStore.dispatch(action: action)
+                self.appStore.dispatch(action)
             }
         )
     }

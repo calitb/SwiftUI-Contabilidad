@@ -21,31 +21,31 @@ enum AppAction {
     case setSnackbarSuccess(message: String)
     
     // handler for Thunk actions
-    func perform(dispatch: @escaping Dispatch, state: AppState) -> AppAction? {
+    func perform(store: AppStore) -> AppAction? {
         switch self {
         case .setItem(let item, let amount):
             let action = AppAction._setItem(item, amount: amount)
-            let newState = dispatch(action)
-            if FileManagement.saveData(dataSource: newState.items) {
+            store.dispatch(action)
+            if FileManagement.saveData(dataSource: store.state.items) {
                 let action = AppAction.setSnackbarSuccess(message: "Saved")
-                _ = dispatch(action)
+                store.dispatch(action)
             }
             else {
-                let action = AppAction.setSnackbarError(message: "Update couldn't be saved")
-                _ = dispatch(action)
+                let action = AppAction.setSnackbarError(message: "Failed to save")
+                store.dispatch(action)
             }
         case .setSnackbarError(let message):
             let action = AppAction.showSnackbar(SnackbarConfiguration(message: message, type: .error))
-            _ = dispatch(action)
+            store.dispatch(action)
         case .setSnackbarSuccess(let message):
             let action = AppAction._showSnackbar(SnackbarConfiguration(message: message, type: .success))
-            _ = dispatch(action)
+            store.dispatch(action)
         case .showSnackbar(let conf):
             let action = AppAction._showSnackbar(conf)
-            _ = dispatch(action)
+            store.dispatch(action)
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                _ = dispatch(AppAction._hideSnackbar)
+                store.dispatch(AppAction._hideSnackbar)
             }
         default:
             return self
