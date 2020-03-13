@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ItemListScreen: View {
-    @EnvironmentObject private var appStore: AppStore
+    @EnvironmentObject private var store: Store
     
     init() {
         UITableView.appearance().tableFooterView = UIView()
@@ -18,12 +18,12 @@ struct ItemListScreen: View {
     
     var body: some View {
         VStack {
-            List(appStore.state.items) { item in
+            List(store.state.items) { item in
                 NavigationLink(destination: ItemDetailScreen(item: item)) {
                     ItemRow(item: item)
                 }
             }
-            TotalRow(items: appStore.state.items)
+            TotalRow(items: store.state.items)
         }.navigationBarTitle("Contabilidad")
     }
 }
@@ -36,7 +36,7 @@ struct ItemListScreen_Previews: PreviewProvider {
                     NavigationView {
                         ItemListScreen()
                     }
-                    .environmentObject(APPSTORE_FIXTURE)
+                    .environmentObject(STORE_FIXTURE)
                     .previewDevice(PreviewDevice(rawValue: deviceName))
                     .environment(\.colorScheme, scheme)
                     .previewDisplayName("\(deviceName) \(scheme)")

@@ -1,5 +1,5 @@
 //
-//  AppState.swift
+//  state.swift
 //  Contabilidad
 //
 //  Created by Carlos Thurber Boaventura on 07Mar20.

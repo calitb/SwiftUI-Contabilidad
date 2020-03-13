@@ -25,5 +25,5 @@ let SNACKBAR_ERROR_FIXTURE = SnackbarConfiguration(message: "An Error Occurred",
 let SNACKBAR_SUCCESS_FIXTURE = SnackbarConfiguration(message: "Success", type: .success)
 let SNACKBAR_TYPES_FIXTURE = [SNACKBAR_ERROR_FIXTURE, SNACKBAR_SUCCESS_FIXTURE]
 
-let APPSTORE_FIXTURE = AppStore(state: AppState(items: ITEMS_FIXTURE, snackbarConf:nil))
-let APPSTORE_SNACKBAR_SUCCESS_FIXTURE = AppStore(state: AppState(items: ITEMS_FIXTURE, snackbarConf:SNACKBAR_SUCCESS_FIXTURE))
+let STORE_FIXTURE = Store(state: AppState(items: ITEMS_FIXTURE, snackbarConf:nil))
+let STORE_SNACKBAR_SUCCESS_FIXTURE = Store(state: AppState(items: ITEMS_FIXTURE, snackbarConf:SNACKBAR_SUCCESS_FIXTURE))

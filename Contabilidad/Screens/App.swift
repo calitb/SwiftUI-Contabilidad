@@ -9,15 +9,15 @@
 import SwiftUI
 
 struct App: View {
-    @EnvironmentObject private var appStore: AppStore
+    @EnvironmentObject private var store: Store
     
     var body: some View {
         ZStack {
             NavigationView {
                 ItemListScreen()
             }
-            if self.appStore.state.snackbarConf != nil {
-             	Snackbar(conf: self.appStore.state.snackbarConf!)
+            if self.store.state.snackbarConf != nil {
+             	Snackbar(conf: self.store.state.snackbarConf!)
             }
         }
     }
@@ -29,7 +29,7 @@ struct App_Previews: PreviewProvider {
             ForEach(DEVICES_FIXTURE, id: \.self) { deviceName in
                 ForEach(SCHEMES_FIXTURE, id: \.self) { scheme in
                     App()
-                        .environmentObject(APPSTORE_SNACKBAR_SUCCESS_FIXTURE)
+                        .environmentObject(STORE_SNACKBAR_SUCCESS_FIXTURE)
                         .previewDevice(PreviewDevice(rawValue: deviceName))
                         .environment(\.colorScheme, scheme)
                         .previewDisplayName("\(deviceName) \(scheme)")

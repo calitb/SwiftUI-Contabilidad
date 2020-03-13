@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ItemDetailScreen: View {
     
-    @EnvironmentObject private var appStore: AppStore
+    @EnvironmentObject private var store: Store
     @State var amount: String = ""
     
     var item : Item
@@ -30,8 +30,7 @@ struct ItemDetailScreen: View {
         .navigationBarItems(trailing:
             Button("Save") {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
-                let action = AppAction.setItem(self.item, amount: Double(self.amount)!)
-                self.appStore.dispatch(action)
+                self.store.dispatch(UpdateItemAction(item: self.item, amount: Double(self.amount)!))
             }
         )
     }
@@ -45,7 +44,7 @@ struct ItemDetailScreen_Previews: PreviewProvider {
                     NavigationView {
                         ItemDetailScreen(item: ITEM_FIXTURE)
                     }
-                    .environmentObject(APPSTORE_FIXTURE)
+                    .environmentObject(STORE_FIXTURE)
                     .previewDevice(PreviewDevice(rawValue: deviceName))
                     .environment(\.colorScheme, scheme)
                     .previewDisplayName("\(deviceName) \(scheme)")
