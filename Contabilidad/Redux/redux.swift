@@ -28,3 +28,7 @@ protocol Action: ReduxAction {
 protocol ThunkAction: ReduxAction {
     func perform(dispatch: @escaping Dispatch, getState: GetState)
 }
+
+struct RollbackAction: Action {
+    var oldState: AppState
+}

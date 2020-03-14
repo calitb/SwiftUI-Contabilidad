@@ -10,25 +10,33 @@ import Foundation
 
 struct SetItemAction: Action {
     var item: Item
-    var amount: Double
 }
 
-struct UpdateItemAction: ThunkAction {
+struct SetItemAmountAction: ThunkAction {
     var item: Item
     var amount: Double
     
     func perform(dispatch: @escaping Dispatch, getState: GetState) {
-        dispatch(SetItemAction(item: item, amount: amount))
-        dispatch(SaveItemsAction())
+        var updatedItem = self.item
+        updatedItem.amount = amount
+        
+        let rollback = RollbackAction(oldState: getState())
+        dispatch(SetItemAction(item: updatedItem))
+        dispatch(SaveItemsAction(rollbackAction: rollback))
     }
 }
 
 struct SaveItemsAction: ThunkAction {
+    var rollbackAction: RollbackAction?
+    
     func perform(dispatch: @escaping Dispatch, getState: GetState) {
         if FileManagement.saveData(dataSource: getState().items) {
             dispatch(SetSnackbarSuccessAction(message: "Saved"))
         }
         else {
+            if let rollbackAction = rollbackAction {
+                dispatch(rollbackAction)
+            }
             dispatch(SetSnackbarErrorAction(message: "Failed to save"))
         }
     }

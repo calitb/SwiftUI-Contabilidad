@@ -30,7 +30,7 @@ struct ItemDetailScreen: View {
         .navigationBarItems(trailing:
             Button("Save") {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
-                self.store.dispatch(UpdateItemAction(item: self.item, amount: Double(self.amount)!))
+                self.store.dispatch(SetItemAmountAction(item: self.item, amount: Double(self.amount)!))
             }
         )
     }

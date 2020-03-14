@@ -14,7 +14,7 @@ struct ShowSnackbarAction: Action {
 
 struct HideSnackbarAction: Action {}
 
-struct PresentSnackbarAction: ThunkAction {
+struct ShowSnackbarWithTimeoutAction: ThunkAction {
     var conf: SnackbarConfiguration
     var timeout: Double
     
@@ -31,7 +31,7 @@ struct SetSnackbarErrorAction: ThunkAction {
     var message: String
     
     func perform(dispatch: @escaping Dispatch, getState: GetState) {
-        dispatch(PresentSnackbarAction(conf: SnackbarConfiguration(message: message, type: .error), timeout: 2.0))
+        dispatch(ShowSnackbarWithTimeoutAction(conf: SnackbarConfiguration(message: message, type: .error), timeout: 2.0))
     }
 }
 
@@ -39,6 +39,6 @@ struct SetSnackbarSuccessAction: ThunkAction {
     var message: String
     
     func perform(dispatch: @escaping Dispatch, getState: GetState) {
-        dispatch(PresentSnackbarAction(conf: SnackbarConfiguration(message: message, type: .success), timeout: 2.0))
+        dispatch(ShowSnackbarWithTimeoutAction(conf: SnackbarConfiguration(message: message, type: .success), timeout: 2.0))
     }
 }
