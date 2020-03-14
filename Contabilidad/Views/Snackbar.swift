@@ -19,10 +19,18 @@ struct SnackbarConfiguration {
     
     var color: Color {
         switch type {
-            case .error: return .red
-            case .success: return .green
+        case .error: return Color(red: 211/255.0, green: 47/255.0, blue: 47/255.0)
+        case .success: return Color(red: 67/255.0, green: 160/255.0, blue: 71/255.0)
         }
     }
+    
+    var image: Image {
+        switch type {
+        case .error: return Image(uiImage: #imageLiteral(resourceName: "error"))
+        case .success: return Image(uiImage: #imageLiteral(resourceName: "success"))
+        }
+    }
+    
 }
 
 struct Snackbar: View {
@@ -34,15 +42,23 @@ struct Snackbar: View {
             Spacer()
             if self.conf != nil {
                 HStack {
-                    Spacer()
+                    self.conf!.image
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .colorMultiply(.white)
+                    	.padding(.leading, 20)
+                    	.padding(.trailing, 10)
                     Text(self.conf!.message)
-                        .font(.body)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 30)
+                        .font(.headline)
+                        .lineLimit(2)
+                        .padding(.trailing, 10)
                     Spacer()
                 }
+                
                 .frame(height: HEIGHT)
                 .background(self.conf!.color)
+                .padding(.bottom, 25)
+                .padding(.horizontal, 15)
                 .transition(.asymmetric(
                     insertion: .move(edge: .bottom),
                     removal: .move(edge: .bottom))
@@ -50,7 +66,7 @@ struct Snackbar: View {
                 .animation(Animation.spring())
             }
         }
-        .edgesIgnoringSafeArea(.all)
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
 
