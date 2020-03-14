@@ -27,20 +27,28 @@ struct SnackbarConfiguration {
 
 struct Snackbar: View {
     let HEIGHT: CGFloat = 60
-    var conf: SnackbarConfiguration
+    var conf: SnackbarConfiguration?
     
     var body: some View {
         VStack {
             Spacer()
-            HStack {
-                Spacer()
-                Text(self.conf.message)
-                    .font(.body)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 30)
-                Spacer()
-            }.frame(height: HEIGHT)
-            .background(self.conf.color)
+            if self.conf != nil {
+                HStack {
+                    Spacer()
+                    Text(self.conf!.message)
+                        .font(.body)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 30)
+                    Spacer()
+                }
+                .frame(height: HEIGHT)
+                .background(self.conf!.color)
+                .transition(.asymmetric(
+                    insertion: .move(edge: .bottom),
+                    removal: .move(edge: .bottom))
+                )
+                .animation(Animation.spring())
+            }
         }
         .edgesIgnoringSafeArea(.all)
     }
