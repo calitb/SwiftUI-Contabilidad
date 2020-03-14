@@ -29,15 +29,16 @@ struct TotalRow_Previews: PreviewProvider {
     static var previews: some View {
         Group() {
             ForEach(DEVICES_FIXTURE, id: \.self) { deviceName in
-                ForEach(SCHEMES_FIXTURE, id: \.self) { scheme in
-                    NavigationView {
-                        TotalRow(items: ITEMS_FIXTURE)
-                    }
-                    .previewDevice(PreviewDevice(rawValue: deviceName))
-                    .environment(\.colorScheme, scheme)
-                    .previewDisplayName("\(deviceName) \(scheme)")
+            ForEach(SCHEMES_FIXTURE, id: \.self) { scheme in
+            ForEach(SCHEMES_LOCALE, id: \.self) { locale in
+                NavigationView {
+                    TotalRow(items: ITEMS_FIXTURE)
                 }
-            }
+                .environment(\.locale, .init(identifier: locale))
+                .previewDevice(PreviewDevice(rawValue: deviceName))
+                .environment(\.colorScheme, scheme)
+                .previewDisplayName("\(deviceName) \(scheme) (\(locale))")
+            }}}
         }
     }
 }

@@ -21,15 +21,16 @@ struct CircleImage_Previews: PreviewProvider {
     static var previews: some View {
         Group() {
             ForEach(DEVICES_FIXTURE, id: \.self) { deviceName in
-                ForEach(SCHEMES_FIXTURE, id: \.self) { scheme in
-                    NavigationView {
-                    	CircleImage(image: IMAGE_FIXTURE)
-                    }
-                    .previewDevice(PreviewDevice(rawValue: deviceName))
-                    .environment(\.colorScheme, scheme)
-                    .previewDisplayName("\(deviceName) \(scheme)")
+            ForEach(SCHEMES_FIXTURE, id: \.self) { scheme in
+            ForEach(SCHEMES_LOCALE, id: \.self) { locale in
+                NavigationView {
+                    CircleImage(image: IMAGE_FIXTURE)
                 }
-            }
+                .environment(\.locale, .init(identifier: locale))
+                .previewDevice(PreviewDevice(rawValue: deviceName))
+                .environment(\.colorScheme, scheme)
+                .previewDisplayName("\(deviceName) \(scheme) (\(locale))")
+            }}}
         }
     }
 }

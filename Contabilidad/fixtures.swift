@@ -11,6 +11,7 @@ import SwiftUI
 
 let DEVICES_FIXTURE = ["iPhone 11"]
 let SCHEMES_FIXTURE = [ColorScheme.dark]
+let SCHEMES_LOCALE = ["en_US"]
 
 let IMAGE_FIXTURE = Image(uiImage: #imageLiteral(resourceName: "bgeneral"))
 let ITEM_FIXTURE = Item(id: UUID(), title: "Efectivo", amount: 34.72, imageName: "cash.png")

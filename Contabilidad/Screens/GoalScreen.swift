@@ -14,9 +14,8 @@ struct GoalScreen: View {
     var body: some View {
         VStack {
             CircularProgressView(progress: CGFloat(store.state.items.map({$0.amount}).reduce(0,+)/store.state.goal), colors: [.green])
-            Text("Goal: \(Item.currencyFormatter.string(from: NSNumber(value:store.state.goal))!)")
-                .font(.title)
-        }
+            
+        }.navigationBarTitle(Text("Goal"), displayMode: .inline)
     }
 }
 
@@ -24,16 +23,17 @@ struct GoalScreen_Previews: PreviewProvider {
     static var previews: some View {
         Group() {
             ForEach(DEVICES_FIXTURE, id: \.self) { deviceName in
-                ForEach(SCHEMES_FIXTURE, id: \.self) { scheme in
-                    NavigationView {
-                        GoalScreen()
-                    }
-                    .environmentObject(STORE_FIXTURE)
-                    .previewDevice(PreviewDevice(rawValue: deviceName))
-                    .environment(\.colorScheme, scheme)
-                    .previewDisplayName("\(deviceName) \(scheme)")
+            ForEach(SCHEMES_FIXTURE, id: \.self) { scheme in
+            ForEach(SCHEMES_LOCALE, id: \.self) { locale in
+                NavigationView {
+                    GoalScreen()
                 }
-            }
+                .environment(\.locale, .init(identifier: locale))
+                .environmentObject(STORE_FIXTURE)
+                .previewDevice(PreviewDevice(rawValue: deviceName))
+                .environment(\.colorScheme, scheme)
+                .previewDisplayName("\(deviceName) \(scheme) (\(locale))")
+            }}}
         }
     }
 }

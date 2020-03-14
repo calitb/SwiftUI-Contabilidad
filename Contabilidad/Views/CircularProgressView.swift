@@ -47,15 +47,16 @@ struct CircularProgressView_Previews: PreviewProvider {
     static var previews: some View {
         Group() {
             ForEach(DEVICES_FIXTURE, id: \.self) { deviceName in
-                ForEach(SCHEMES_FIXTURE, id: \.self) { scheme in
-                    NavigationView {
-                        CircularProgressView(progress: 75/100)
-                    }
-                    .previewDevice(PreviewDevice(rawValue: deviceName))
-                    .environment(\.colorScheme, scheme)
-                    .previewDisplayName("\(deviceName) \(scheme)")
+            ForEach(SCHEMES_FIXTURE, id: \.self) { scheme in
+            ForEach(SCHEMES_LOCALE, id: \.self) { locale in
+                NavigationView {
+                    CircularProgressView(progress: 75/100)
                 }
-            }
+                .environment(\.locale, .init(identifier: locale))
+                .previewDevice(PreviewDevice(rawValue: deviceName))
+                .environment(\.colorScheme, scheme)
+                .previewDisplayName("\(deviceName) \(scheme) (\(locale))")
+            }}}
         }
     }
 }

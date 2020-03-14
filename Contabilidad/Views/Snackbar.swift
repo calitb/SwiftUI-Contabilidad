@@ -74,17 +74,17 @@ struct Snackbar_Previews: PreviewProvider {
     static var previews: some View {
         Group() {
             ForEach(DEVICES_FIXTURE, id: \.self) { deviceName in
-                ForEach(SCHEMES_FIXTURE, id: \.self) { scheme in
-                    ForEach(SNACKBAR_TYPES_FIXTURE, id: \.type) { type in
-                        NavigationView {
-                            Snackbar(conf: type)
-                        }
-                        .previewDevice(PreviewDevice(rawValue: deviceName))
-                        .environment(\.colorScheme, scheme)
-                        .previewDisplayName("\(deviceName) \(scheme)")
-                    }
+            ForEach(SCHEMES_FIXTURE, id: \.self) { scheme in
+            ForEach(SCHEMES_LOCALE, id: \.self) { locale in
+            ForEach(SNACKBAR_TYPES_FIXTURE, id: \.type) { type in
+                NavigationView {
+                    Snackbar(conf: type)
                 }
-            }
+                .environment(\.locale, .init(identifier: locale))
+                .previewDevice(PreviewDevice(rawValue: deviceName))
+                .environment(\.colorScheme, scheme)
+                .previewDisplayName("\(deviceName) \(scheme) (\(locale))")
+            }}}}
         }
     }
 }
