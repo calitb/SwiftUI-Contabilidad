@@ -24,7 +24,13 @@ struct ItemListScreen: View {
                 }
             }
             TotalRow(items: store.state.items)
-        }.navigationBarTitle("Contabilidad")
+        }
+        .navigationBarTitle("Contabilidad")
+        .navigationBarItems(trailing:
+            NavigationLink(destination: GoalScreen()) {
+                Text("Goal")
+            }
+        )
     }
 }
 

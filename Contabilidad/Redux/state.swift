@@ -10,6 +10,7 @@ import Foundation
 
 struct AppState {
     
+    var goal: Double
     var items: [Item]
     var snackbarConf: SnackbarConfiguration?
     
@@ -18,6 +19,7 @@ struct AppState {
     }
     
     init(items: [Item]?, snackbarConf: SnackbarConfiguration?) {
+        self.goal = 1500
         self.snackbarConf = snackbarConf;
         if let savedItems = FileManagement.readData() {
             self.items = savedItems
