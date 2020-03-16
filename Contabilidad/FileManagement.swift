@@ -17,7 +17,7 @@ final class FileManagement {
     }
     
     class func readData() -> [Item]? {
-        #if !targetEnvironment(simulator)
+//        #if !targetEnvironment(simulator)
         do {
             let jsonData = try Data(contentsOf: FileManagement.filePath())
             let dataSource = try JSONDecoder().decode([Item].self, from: jsonData)
@@ -27,13 +27,13 @@ final class FileManagement {
         catch {
             NSLog("Failed to read data \(error)")
         }
-        #endif
+//        #endif
         
         return nil
     }
     
     class func saveData(dataSource: [Item]) -> Bool {
-        #if !targetEnvironment(simulator)
+//        #if !targetEnvironment(simulator)
         do {
             let jsonData = try JSONEncoder().encode(dataSource)
             try jsonData.write(to: FileManagement.filePath())
@@ -43,7 +43,7 @@ final class FileManagement {
         catch {
             NSLog("Failed to save data \(error)")
         }
-        #endif
+//        #endif
         
         return false
     }
