@@ -13,10 +13,14 @@ import SwiftUI
 struct CircularProgressView: View {
 
     var progress: CGFloat
+    let numberFormatter: NumberFormatter
 
     private let linearGradient: LinearGradient
 
     init(progress: CGFloat, colors: [Color] = [.purple, .green, .blue, .red]) {
+        self.numberFormatter = NumberFormatter()
+        self.numberFormatter.minimumFractionDigits = 1
+        self.numberFormatter.maximumFractionDigits = 1
         self.progress = progress
         linearGradient =  LinearGradient(gradient: Gradient(colors: colors),
                                         startPoint: .trailing,
@@ -24,8 +28,9 @@ struct CircularProgressView: View {
     }
 
     private var displayedProgress: String {
-        let value = Int(roundf(Float(progress) * 100))
-        return "\(value)%"
+        let value = NSNumber(value: Float(progress) * 100)
+        let valueStr = numberFormatter.string(from: value)!
+        return "\(valueStr)%"
     }
 
     var body: some View {
@@ -33,7 +38,7 @@ struct CircularProgressView: View {
             Circle()
                 .trim(from: 0, to: progress)
                 .stroke(linearGradient, lineWidth: 25)
-                .frame(width:150)
+                .frame(width:175)
                 .rotationEffect(Angle(degrees:-90))
             Text(verbatim: displayedProgress)
                 .foregroundColor(.white)
