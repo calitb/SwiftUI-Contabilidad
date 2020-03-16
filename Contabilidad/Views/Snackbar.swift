@@ -26,8 +26,8 @@ struct SnackbarConfiguration {
     
     var image: Image {
         switch type {
-        case .error: return Image(uiImage: #imageLiteral(resourceName: "error"))
-        case .success: return Image(uiImage: #imageLiteral(resourceName: "success"))
+        case .error: return Image(systemName: "exclamationmark.circle.fill")
+        case .success: return Image(systemName: "checkmark.circle.fill")
         }
     }
     
@@ -45,7 +45,7 @@ struct Snackbar: View {
                     self.conf!.image
                         .resizable()
                         .frame(width: 30, height: 30)
-                        .colorMultiply(.white)
+                        .foregroundColor(.white)
                         .padding(.leading, 20)
                         .padding(.trailing, 10)
                     Text(self.conf!.message)
