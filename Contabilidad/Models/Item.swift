@@ -13,12 +13,21 @@ public struct Item: Identifiable, Codable, Hashable {
     public var title: String
     public var amount: Double
     public var imageName: String
+    public var ignore = false
     
     public init(id: UUID, title: String, amount: Double, imageName: String) {
         self.id = id
         self.title = title
         self.amount = amount
         self.imageName = imageName
+    }
+    
+    public init(id: UUID, title: String, amount: Double, imageName: String, ignore: Bool) {
+        self.id = id
+        self.title = title
+        self.amount = amount
+        self.imageName = imageName
+        self.ignore = ignore
     }
     
     var image: Image {

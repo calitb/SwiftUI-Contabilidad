@@ -16,7 +16,7 @@ struct TotalRow: View {
             Text("TOTAL")
                 .font(.title)
             Spacer()
-            Text(Item.amountToString(amount: items.map({$0.amount}).reduce(0,+)))
+            Text(Item.amountToString(amount: items.filter({!$0.ignore}).map({$0.amount}).reduce(0,+)))
                 .font(.title)
         }
         .frame(height: 30)
