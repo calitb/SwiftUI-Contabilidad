@@ -14,6 +14,9 @@ struct GoalScreen: View {
     var body: some View {
         VStack {
             CircularProgressView(progress: CGFloat(store.state.items.filter({!$0.ignore}).map({$0.amount}).reduce(0,+)/store.state.goal), colors: [.green])
+            Text(verbatim: Item.amountToString(amount: store.state.goal))
+            .foregroundColor(.primary)
+            .font(.system(.title, design: .monospaced))
             
         }.navigationBarTitle(Text("Goal"), displayMode: .inline)
     }
