@@ -41,7 +41,7 @@ struct CircularProgressView: View {
                 .frame(width:175)
                 .rotationEffect(Angle(degrees:-90))
             Text(verbatim: displayedProgress)
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
                 .font(.system(.largeTitle, design: .monospaced))
                 .bold()
         }
