@@ -18,9 +18,21 @@ struct ItemListScreen: View {
     
     var body: some View {
         VStack {
-            List(store.state.items) { item in
-                NavigationLink(destination: ItemDetailScreen(item: item)) {
-                    ItemRow(item: item)
+            
+            List() {
+                Section(header: Text("Capital")) {
+                    ForEach(store.state.items.filter({!$0.ignore})) { item in
+                        NavigationLink(destination: ItemDetailScreen(item: item)) {
+                            ItemRow(item: item)
+                        }
+                    }
+                }
+                Section(header: Text("Otras")) {
+                    ForEach(store.state.items.filter({$0.ignore})) { item in
+                        NavigationLink(destination: ItemDetailScreen(item: item)) {
+                            ItemRow(item: item)
+                        }
+                    }
                 }
             }
             TotalRow(items: store.state.items)
